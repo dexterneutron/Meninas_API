@@ -9,11 +9,11 @@ class DB_Connect {
     }
     // Connecting to database
     public function connect() {
-        require_once 'include/config.php';
+        require_once 'config.php';
         // connecting to mysql
-        $con = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+        $con = mysql_connect("127.0.0.1", "root", "");
         // selecting database
-        mysql_select_db(DB_DATABASE);
+        mysql_select_db("ellumfpc_flamer_nofacebook");
         // return database handler
         return $con;
     }

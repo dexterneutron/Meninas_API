@@ -1,10 +1,10 @@
 <?php
-class DB_Functions {
+class DbHandler {
     private $db;
     //put your code here
     // constructor
     function __construct() {
-        require_once 'DB_Connect.php';
+        require_once '/DB_Connect.php';
         // connecting to database
         $this->db = new DB_Connect();
         $this->db->connect();
@@ -16,17 +16,16 @@ class DB_Functions {
      * Verifies user by email and password
      */
     public function validarUsuarioAdmin($usuario, $password) {
+        $query="SELECT * FROM t_admin WHERE admin_username='$usuario'";
         $result = mysql_query("SELECT * FROM t_admin WHERE admin_username = '$usuario'") or die(mysql_error());
         // check for result
         $no_of_rows = mysql_num_rows($result);
         if ($no_of_rows > 0) {
             $result = mysql_fetch_array($result);
-   
             //TODO agregar encriptacion
-            $StoredPassword = $result['admin_password'];
-            
+            $storedPassword = $result['admin_password'];
             // check for password equality
-            if ($StoredPassword == $password) {
+            if ($storedPassword == $password) {
                 // user authentication details are correct
                 return $result;
             }

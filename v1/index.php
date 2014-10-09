@@ -1,5 +1,99 @@
 <?php
 
+require_once '../include/DbHandler.php';
+require '.././libs/Slim/Slim.php';
+
+\Slim\Slim::registerAutoloader();
+
+$app = new \Slim\Slim();
+
+
+function echoRespnse($status_code, $response) {
+    $app = \Slim\Slim::getInstance();
+    // Http response code
+    $app->status($status_code);
+ 
+    // setting response content type to json
+    $app->contentType('application/json');
+ 
+    echo json_encode($response);
+}
+
+ 
+$app->post('/loginAdmin', function() use ($app) {
+
+            $username = $app->request->post('username');
+            $password = $app->request->post('password');
+            $response = array();
+            
+            
+            $db = new DbHandler();
+            // check for correct email and password
+            
+            $result=$db->validarUsuarioAdmin($username, $password);
+               if ($result) {
+                
+                if ($username != NULL) {
+                    $response["error"] = false;
+                    $response['username'] = $result['admin_username'];
+                  //  $response['apiKey'] = $user['api_key'];
+                } else {
+                    // unknown error occurred
+                    $response['error'] = true;
+                    $response['message'] = "An error occurred. Please try again";
+                }
+            } else {
+                // user credentials are wrong
+                $response['error'] = true;
+                $response['UserName'] = $result['admin_username'];
+                
+
+                $response['message'] = 'Login Fallido, Usuario o Clave Incorrectos';
+            }
+            echoRespnse(200, $response);
+        });
+
+
+
+$app->run();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 if (isset($_POST['tag']) && $_POST['tag'] != '') {
     // Get tag
     $tag = $_POST['tag'];
@@ -29,5 +123,5 @@ if (isset($_POST['tag']) && $_POST['tag'] != '') {
             echo json_encode($response);
         }
     }
-}
+}*/
 ?>
