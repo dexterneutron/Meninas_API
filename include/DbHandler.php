@@ -23,7 +23,7 @@ class DbHandler {
         if ($no_of_rows > 0) {
             $result = mysql_fetch_array($result);
             //TODO agregar encriptacion
-            $storedPassword = $result['admin_password'];
+            $storedPassword = md5($result['admin_password']);
             // check for password equality
             if ($storedPassword == $password) {
                 // user authentication details are correct
@@ -33,6 +33,20 @@ class DbHandler {
             // user not found
             return false;
         }
+    }
+    
+    public function listaDeUsuarios()
+    {
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
  /**
      * Checks whether the email is valid or fake
