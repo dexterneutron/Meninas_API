@@ -17,7 +17,7 @@ class DbHandler {
      */
     public function validarUsuarioAdmin($usuario, $password) {
         $query="SELECT * FROM t_admin WHERE admin_username='$usuario'";
-        $result = mysql_query("SELECT * FROM t_admin WHERE admin_username = '$usuario'") or die(mysql_error());
+        $result = mysql_query($query) or die(mysql_error());
         // check for result
         $no_of_rows = mysql_num_rows($result);
         if ($no_of_rows > 0) {
@@ -35,9 +35,11 @@ class DbHandler {
         }
     }
     
-    public function listaDeUsuarios()
+    public function getDataUsuarios($pagina,$numero_resultados)
     {
-        
+         $query="SELECT * FROM ";
+          $result = mysql_query($query) or die(mysql_error());
+
         
         
         
